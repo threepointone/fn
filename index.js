@@ -1,5 +1,4 @@
 // fair caveat, this is code collected for various places, and I don't have tests yet. YET.
-
 "use strict";
 
 module.exports = {
@@ -27,7 +26,7 @@ var slice = [].slice,
     toString = {}.toString;
 
 function isValue(v) {
-    return ((v !== null) && (v !== undefined));
+    return v != null;
 }
 
 function identity(x) {
