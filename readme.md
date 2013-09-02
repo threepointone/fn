@@ -7,6 +7,8 @@ included -
 - isValue
 - identity
 - indexOf
+- keys
+- values
 - isArray
 - toArray
 - each
