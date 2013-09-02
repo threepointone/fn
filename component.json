@@ -1,0 +1,10 @@
+{
+  "name": "fn",
+  "repo": "threepointone/fn",
+  "description": "functional programming helpers",
+  "version": "0.0.1",
+  "keywords": ["functional"],
+  "dependencies": {},
+  "scripts": ["index.js"],  
+  "license": "BSD-2-Clause"
+}
