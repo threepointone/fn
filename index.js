@@ -1,16 +1,23 @@
+// fair caveat, this is code collected for various places, and I don't have tests yet. YET.
+
 "use strict";
 
 module.exports = {
-    each: each,
+    isValue: isValue,
+    identity: identity,
+    indexOf: indexOf,
     isArray: isArray,
+    toArray: toArray,
+    each: each,
     extend: extend,
+    map: map,
     times: times,
     invoke: invoke,
     filter: filter,
     find: find,
     reduce: reduce,
-    isValue: isValue,
-    identity: identity
+    debounce: debounce,
+    compose: compose
 };
 
 
@@ -24,6 +31,41 @@ function isValue(v) {
 
 function identity(x) {
     return x;
+}
+
+function indexOf(arr, obj) {
+    if (arr.indexOf) {
+        return arr.indexOf(obj);
+    }
+    for (var i = 0; i < arr.length; ++i) {
+        if (arr[i] === obj) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+function isArray(obj) {
+    if (Array.isArray) {
+        return Array.isArray(obj);
+    }
+    return toString.call(obj) === '[object Array]';
+}
+
+function toArray(obj) {
+    if (!obj) {
+        return [];
+    }
+    if (isArray(obj)) {
+        return slice.call(obj);
+    }
+    if (obj.length === +obj.length) {
+        return map(obj, identity);
+    }
+    return map(obj, function(val) {
+        return val;
+    });
 }
 
 function each(obj, fn) {
@@ -54,12 +96,6 @@ function extend(obj) {
 
 }
 
-function isArray(obj) {
-    if (Array.isArray) {
-        return Array.isArray(obj);
-    }
-    return toString.call(obj) === '[object Array]';
-}
 
 function map(obj, fn) {
     var arr = [];
@@ -118,4 +154,37 @@ function reduce(arr, fn, initial) {
     }
 
     return curr;
+}
+
+function debounce(func, wait, immediate) {
+    var result;
+    var timeout = null;
+    return function() {
+        var context = this,
+            args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) {
+                result = func.apply(context, args);
+            }
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) {
+            result = func.apply(context, args);
+        }
+        return result;
+    };
+}
+
+function compose() {
+    var funcs = arguments;
+    return function() {
+        var args = arguments;
+        for (var i = funcs.length - 1; i >= 0; i--) {
+            args = [funcs[i].apply(this, args)];
+        }
+        return args[0];
+    };
 }
