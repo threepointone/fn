@@ -6,6 +6,8 @@ module.exports = {
     isValue: isValue,
     identity: identity,
     indexOf: indexOf,
+    keys: keys,
+    values: values,
     isArray: isArray,
     toArray: toArray,
     each: each,
@@ -44,6 +46,29 @@ function indexOf(arr, obj) {
     return -1;
 }
 
+function keys(obj) {
+    if (obj !== Object(obj)) {
+        throw new TypeError('Invalid object');
+    }
+    var keys = [];
+    for (var key in obj) {
+        if (has.call(obj, key)) {
+            keys.push(key);
+        }
+    }
+    return keys;
+}
+
+function values(obj) {
+    var values = [];
+    for (var key in obj) {
+        if (has.call(obj, key)) {
+            values.push(obj[key]);
+        }
+    }
+    return values;
+}
+
 function isArray(obj) {
     if (Array.isArray) {
         return Array.isArray(obj);
@@ -61,9 +86,7 @@ function toArray(obj) {
     if (obj.length === +obj.length) {
         return map(obj, identity);
     }
-    return map(obj, function(val) {
-        return val;
-    });
+    return values(obj);
 }
 
 function each(obj, fn) {
