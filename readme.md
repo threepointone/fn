@@ -5,6 +5,8 @@ I plan on using this in my own modules via browserify/npm, but feel free to sugg
 included - 
 
 - each
+- isValue
+- identity
 - isArray
 - extend
 - times

@@ -8,13 +8,23 @@ module.exports = {
     invoke: invoke,
     filter: filter,
     find: find,
-    reduce: reduce
+    reduce: reduce,
+    isValue: isValue,
+    identity: identity
 };
 
 
 var slice = [].slice,
     has = {}.hasOwnProperty,
     toString = {}.toString;
+
+function isValue(v) {
+    return v != null; // matches undefined and null
+}
+
+function identity(x) {
+    return x;
+}
 
 function each(obj, fn) {
     if (isArray(obj)) {
