@@ -146,7 +146,6 @@ function reduce(arr, fn, initial) {
     while (idx < len) {
         curr = fn.call(null, curr, arr[idx], ++idx, arr);
     }
-
     return curr;
 }
 
