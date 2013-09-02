@@ -20,12 +20,14 @@ module.exports = {
     compose: compose
 };
 
-var slice = [].slice,
-    has = {}.hasOwnProperty,
-    toString = {}.toString;
+var Aproto   = Array.prototype,
+    Oproto   = Object.prototype,
+    slice    = Aproto.slice,
+    has      = Oproto.hasOwnProperty,
+    toString = Oproto.toString;
 
 function isValue(v) {
-    return ((v !== null) || (v !== undefined));
+    return v !== null && v !== undefined;
 }
 
 function identity(x) {
