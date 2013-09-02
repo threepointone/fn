@@ -25,7 +25,7 @@ var slice = [].slice,
     toString = {}.toString;
 
 function isValue(v) {
-    return ((v !== null) || (v !== undefined));
+    return ((v !== null) && (v !== undefined));
 }
 
 function identity(x) {
