@@ -20,7 +20,6 @@ module.exports = {
     compose: compose
 };
 
-
 var slice = [].slice,
     has = {}.hasOwnProperty,
     toString = {}.toString;
@@ -44,7 +43,6 @@ function indexOf(arr, obj) {
     }
     return -1;
 }
-
 
 function isArray(obj) {
     if (Array.isArray) {
@@ -93,9 +91,7 @@ function extend(obj) {
         }
     }
     return obj;
-
 }
-
 
 function map(obj, fn) {
     var arr = [];
@@ -106,7 +102,6 @@ function map(obj, fn) {
         arr.push(f(v, k));
     });
     return arr;
-
 }
 
 function times(n, fn) {
@@ -141,7 +136,6 @@ function find(arr, fn) {
         }
     }
     return null;
-
 }
 
 function reduce(arr, fn, initial) {
