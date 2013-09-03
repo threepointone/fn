@@ -22,7 +22,7 @@ included -
 - debounce
 - compose
 
-additionally, you can chain a series of these functions (ala underscore). eg - 
+additionally, you can chain a series of these functions (à la underscore). eg - 
 ```js
 _.chain([1,2,3,4,5,6]).map(function(x){ return x*2; }).filter(function(x){ return x%3 === 0; }).reduce(function(count, x){ return count+x; }, 0).val();
 // 18
