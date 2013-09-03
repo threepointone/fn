@@ -202,7 +202,7 @@ function compose() {
 }
 
 
-// chaining, ala underscore
+// chaining, à la underscore
 
 function chain(obj) {
     if (!(this instanceof chain)) {
