@@ -109,7 +109,7 @@ function extend(obj) {
     var args = slice.call(arguments, 1);
     each(args, function(arg) {
         each(arg, function(val, prop) {
-            obj[prop] = val
+            obj[prop] = val;
         });
     });
     return obj;
@@ -195,7 +195,7 @@ function compose() {
     return function() {
         var args = arguments;
         each(funcs, function(fn){
-            args = [funcs[i].apply(this, args)];
+            args = [fn.apply(this, args)];
         });        
         return args[0];
     };
@@ -209,14 +209,13 @@ function chain(obj) {
         return new chain(obj);
     }
     this._obj = obj;
-
 }
 
 each(module.exports, function(fn, name) {
     chain.prototype[name] = function() {
-        this._obj = fn.apply(this, [this._obj].concat(slice.call(arguments,0)))
+        this._obj = fn.apply(this, [this._obj].concat(slice.call(arguments,0)));
         return this;
-    }
+    };
 });
 
 chain.prototype.val = function() {
