@@ -1,5 +1,4 @@
-// fair caveat, this is code collected for various places, and I don't have tests yet. YET.
-
+// fair caveat, this is code collected from various places, and I don't have tests yet. YET.
 
 "use strict";
 
@@ -194,13 +193,12 @@ function compose() {
     var funcs = arguments;
     return function() {
         var args = arguments;
-        each(funcs, function(fn){
+        each(funcs, function(fn) {
             args = [fn.apply(this, args)];
-        });        
+        });
         return args[0];
     };
 }
-
 
 // chaining, à la underscore
 
@@ -213,7 +211,7 @@ function chain(obj) {
 
 each(module.exports, function(fn, name) {
     chain.prototype[name] = function() {
-        this._obj = fn.apply(this, [this._obj].concat(slice.call(arguments,0)));
+        this._obj = fn.apply(this, [this._obj].concat(slice.call(arguments, 0)));
         return this;
     };
 });
