@@ -116,12 +116,9 @@ function extend(obj) {
 }
 
 function map(obj, fn) {
-    var arr = [];
-    var f = (typeof(fn) === 'string') ? function(o) {
-            return o[fn];
-        } : fn;
+    var arr = [];    
     each(obj, function(v, k) {
-        arr.push(f(v, k));
+        arr.push(fn(v, k));
     });
     return arr;
 }
