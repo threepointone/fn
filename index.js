@@ -1,4 +1,6 @@
 // fair caveat, this is code collected for various places, and I don't have tests yet. YET.
+
+
 "use strict";
 
 module.exports = {
@@ -18,7 +20,8 @@ module.exports = {
     find: find,
     reduce: reduce,
     debounce: debounce,
-    compose: compose
+    compose: compose,
+    chain: chain
 };
 
 var slice = [].slice,
@@ -104,19 +107,16 @@ function each(obj, fn) {
 
 function extend(obj) {
     var args = slice.call(arguments, 1);
-    for (var i = 0, j = args.length; i < j; i++) {
-        var source = args[i];
-        for (var prop in source) {
-            if (has.call(source, prop)) {
-                obj[prop] = source[prop];
-            }
-        }
-    }
+    each(args, function(arg) {
+        each(arg, function(val, prop) {
+            obj[prop] = val
+        });
+    });
     return obj;
 }
 
 function map(obj, fn) {
-    var arr = [];    
+    var arr = [];
     each(obj, function(v, k) {
         arr.push(fn(v, k));
     });
@@ -194,9 +194,31 @@ function compose() {
     var funcs = arguments;
     return function() {
         var args = arguments;
-        for (var i = funcs.length - 1; i >= 0; i--) {
+        each(funcs, function(fn){
             args = [funcs[i].apply(this, args)];
-        }
+        });        
         return args[0];
     };
 }
+
+
+// chaining, ala underscore
+
+function chain(obj) {
+    if (!(this instanceof chain)) {
+        return new chain(obj);
+    }
+    this._obj = obj;
+
+}
+
+each(module.exports, function(fn, name) {
+    chain.prototype[name] = function() {
+        this._obj = fn.apply(this, [this._obj].concat(slice.call(arguments,0)))
+        return this;
+    }
+});
+
+chain.prototype.val = function() {
+    return this._obj;
+};

@@ -69,4 +69,8 @@ describe('fn', function() {
         it('should return the composition of a list of functions, where each function consumes the return value of the function that follows');
     });
 
+    describe ('chain', function(){
+        it('should be able to chain a series of these functions, passing on the results of the previous to the next, and finally giving result with .val()')
+    });
+
 });
