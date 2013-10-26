@@ -106,11 +106,14 @@ function each(obj, fn) {
 
 function extend(obj) {
     var args = slice.call(arguments, 1);
-    each(args, function(arg) {
-        each(arg, function(val, prop) {
-            obj[prop] = val;
-        });
-    });
+    for (var i = 0, j = args.length; i < j; i++) {
+        var source = args[i];
+        for (var prop in source) {
+            if (has.call(source, prop)) {
+                obj[prop] = source[prop];
+            }
+        }
+    }
     return obj;
 }
 
